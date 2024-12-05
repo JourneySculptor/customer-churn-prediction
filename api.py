@@ -103,3 +103,7 @@ def read_root():
         dict: A simple confirmation message.
     """
     return {"message": "API is running successfully"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
