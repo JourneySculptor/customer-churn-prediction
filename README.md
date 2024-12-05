@@ -83,6 +83,7 @@ The Random Forest model, after hyperparameter tuning, was chosen for deployment 
 ```bash
 churn_analysis_project/
 ├── analysis.py             # Data analysis and model training script
+├── main.py               # Starts the FastAPI app using Uvicorn
 ├── api.py                  # FastAPI code for predictions
 ├── requirements.txt        # Required Python libraries
 ├── results/                # Saved models and visualizations
