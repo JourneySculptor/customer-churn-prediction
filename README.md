@@ -40,7 +40,7 @@ This project **does not include the dataset** due to copyright restrictions.
 2. Place the file in the `data/` directory within the project.
 3. Ensure the file is named `customer_churn.csv`.
 
-- **Without the dataset, the project will not run successfully.** 
+**Without the dataset**, the project **will not run successfully**. 
 If you encounter issues, refer to the [Troubleshooting](#troubleshooting) section for detailed guidance.
 
 ### Skills Demonstrated
