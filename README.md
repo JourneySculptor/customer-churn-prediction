@@ -2,20 +2,25 @@
 # Customer Churn Analysis
 
 ## Project Overview
-This project predicts customer churn using machine learning models, including Logistic Regression, Random Forest, and XGBoost. 
-The Random Forest model, after hyperparameter tuning, was chosen for deployment as a FastAPI service for real-time predictions.
+This project predicts **customer churn** in the telecommunications industry using machine learning models. Churn prediction enables businesses to retain valuable customers by identifying who is likely to leave.
+In the competitive telecommunications industry, understanding customer churn is critical for retaining customers and reducing costs.
 
-### Highlights:
-- Multiple machine learning models trained and compared.
-- Logistic Regression achieved the highest accuracy (**81.33%**) in initial evaluation.
-- Random Forest was selected for deployment due to its performance and feature importance interpretability.
+### Use Cases
+- **CRM Integration**: Integrate this API with customer relationship management (CRM) systems to enable real-time churn predictions for targeted marketing campaigns.
+- **Proactive Retention**: Use the predictions to proactively offer discounts or rewards to customers identified as likely to churn.
+- **Business Insights**: Identify factors contributing to churn and adjust marketing or customer service strategies accordingly.
 
-### Skills Demonstrated
-- Data preprocessing and feature engineering.
-- Training, evaluating, and tuning machine learning models.
-- API development and deployment with FastAPI.
+## Methodology Summary:
 
----
+  - Built and evaluated **Logistic Regression**, **Random Forest**, and **XGBoost** models.
+  - Selected **Random Forest** for deployment due to its balance of accuracy and interpretability.
+  - Deployed as a real-time API using **FastAPI**.
+
+## Key Highlights:
+- **Multiple Machine Learning Models**: Logistic Regression, Random Forest, and XGBoost were compared.
+- **Highest Accuracy**: Logistic Regression achieved **81.33%** accuracy.
+- **Deployment**: The Random Forest model was deployed as a real-time prediction API using **FastAPI**.
+- **Comprehensive Analysis**: Includes data preprocessing, exploratory analysis, and model evaluation.
 
 ## Dataset Overview
 - **Source**: Telecom customer churn dataset
@@ -27,35 +32,35 @@ The Random Forest model, after hyperparameter tuning, was chosen for deployment 
   - You can download it from the following link and place it in the `data/` folder as `customer_churn.csv`:
     - [Kaggle - Telco Customer Churn Dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
 
+
+
+### Skills Demonstrated
+- **Data Preprocessing**: Handling missing values, encoding categorical features.
+- **Exploratory Data Analysis (EDA)**: Visualizing churn correlations with various features.
+- **Machine Learning**: Model training, hyperparameter tuning, and evaluation.
+- **API Development**: Deploying a trained model using **FastAPI**.
+- **Version Control**: Managing the project with **Git**.
+- **Deployment Skills**: Using Replit to host APIs and managing API testing workflows.
+
 ---
 
 ## Methodology
+1. **Data Cleaning**
+    - Converted `TotalCharges` to numeric and handled missing values.
+    - One-hot encoding for categorical variables (e.g., `Contract`, `InternetService`).
+    - Binned `tenure` into categories for better interpretability.
 
-### **1. Data Cleaning**
-- Converted `TotalCharges` to numeric and handled missing values.
-- Encoded categorical variables using one-hot encoding.
-- Grouped `tenure` into categorized bins for better analysis.
+2. **Exploratory Data Analysis (EDA)**
+    - Visualized churn distribution by features like `Contract` and `MonthlyCharges`.
+    - Examined correlations and feature importance.
 
-### **2. Exploratory Data Analysis (EDA)**
-- Analyzed correlations between churn and features such as `Contract` and `MonthlyCharges`.
-- Visualized churn distribution by gender.
+3. **Model Building**
+    - Trained Logistic Regression, Random Forest, and XGBoost models.
+    - Hyperparameter tuning for Random Forest using grid search.
 
-### **3. Model Building**
-- Trained and evaluated the following models:
-  - Logistic Regression
-  - Random Forest
-  - XGBoost
-- Performed hyperparameter tuning for Random Forest.
-
-### **4. Model Evaluation**
-- **Logistic Regression**: Accuracy 81.33%, Precision 85%, Recall 90%.
-- **Random Forest**: Accuracy 79.27%, Precision 82%, Recall 92%.
-- **XGBoost**: Accuracy 79.13%, Precision 84%, Recall 89%.
-
-### **5. Model Deployment**
-- Random Forest model was deployed as a FastAPI-based API for real-time churn predictions.
-
----
+4. **Model Evaluation**
+    - Compared models using accuracy, precision, recall, and F1-score.
+    - Selected Random Forest for deployment due to its high recall and balanced F1-score.
 
 ## Results
 ### Model Comparison
@@ -63,7 +68,12 @@ The Random Forest model, after hyperparameter tuning, was chosen for deployment 
 |--------------------|----------|-----------|--------|----------|
 | Logistic Regression | 81.33%   | 0.85      | 0.90   | 0.88     |
 | Random Forest       | 79.27%   | 0.82      | 0.92   | 0.87     |
-| XGBoost             | 79.13%   | 0.84      | 0.89   | 0.86     |
+| XGBoost             | 80.12%   | 0.80      | 0.91   | 0.85     |
+
+### Model Insights
+- **Logistic Regression** achieved the highest accuracy but had slightly lower recall than Random Forest.
+- **Random Forest** recall score of 92% ensures the model is effective at identifying customers likely to churn, minimizing false negatives.
+- **XGBoost** showed solid performance but was outperformed by Random Forest and Logistic Regression in terms of precision and F1-score.
 
 ### Visualizations
 - **Confusion Matrix Heatmap**:
@@ -71,64 +81,71 @@ The Random Forest model, after hyperparameter tuning, was chosen for deployment 
 - **Churn by Gender**:
   ![Churn by Gender](results/churn_by_gender.png)
 
----
 
-## Technologies Used
-- **Python**: Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn, XGBoost
-- **Framework**: FastAPI
-
----
-
-## File Structure
+## How to Test the API
+### 1. Cloning the Repository
+Clone this repository to your local machine using Git:
 ```bash
-churn_analysis_project/
-├── analysis.py             # Data analysis and model training script
-├── main.py               # Starts the FastAPI app using Uvicorn
-├── api.py                  # FastAPI code for predictions
-├── requirements.txt        # Required Python libraries
-├── results/                # Saved models and visualizations
-│   ├── rf_model.joblib     # Trained Random Forest model
-│   ├── scaler.joblib       # Scaler for preprocessing
-│   ├── confusion_matrix.png
-│   ├── churn_by_gender.png
-├── README.md               # Project documentation
-├── .gitignore              # To ignore unnecessary files like data/
-```
-
----
-
-## How to Run
-### 1. Setup
-1. Clone the repository:
-```bash
-git clone <your-repo-url>
-```
-2. Navigate to the project directory:
-```bash
+git clone https://github.com/yourusername/churn_analysis_project.git
 cd churn_analysis_project
 ```
-3. Install required libraries:
+### 2. Installing Dependencies
+Make sure you have Python 3.12+ installed. Then, install the required libraries using `pip`:
 ```bash
 pip install -r requirements.txt
 ```
-
-### 2. Running the Analysis
-1. Train and evaluate the models:
+### 3. Running Locally
+To run the FastAPI app locally, navigate to the project directory and use Uvicorn to launch the app:
 ```bash
-python analysis.py
+uvicorn main:app --reload
 ```
+he application will be accessible at `http://127.0.0.1:8000` in your browser.
+### 4. Replit Deployment (Current Setup)
+1. Visit the hosted API at this URL:
+   - **Base URL**: [https://b5fdc89d-a172-453b-b01a-bd1f31a71217-00-p5trej93zd6q.pike.replit.dev](https://b5fdc89d-a172-453b-b01a-bd1f31a71217-00-p5trej93zd6q.pike.replit.dev)
+2. Open Swagger UI to test the API:   
+   - **Swagger UI**: [https://b5fdc89d-a172-453b-b01a-bd1f31a71217-00-p5trej93zd6q.pike.replit.dev/docs](https://b5fdc89d-a172-453b-b01a-bd1f31a71217-00-p5trej93zd6q.pike.replit.dev/docs)
 
-### 3. Running the API
-1. Start the API server:
-```bash
-uvicorn api:app --reload
+- Input data in the provided JSON format.
+   - Example POST request:
+```json
+   {
+      "gender": "Female",
+      "SeniorCitizen": 0,
+      "Partner": "Yes",
+      "Dependents": "No",
+      "tenure": 12,
+      "PhoneService": "Yes",
+      "MultipleLines": "No",
+      "InternetService": "Fiber optic",
+      "OnlineSecurity": "No",
+      "OnlineBackup": "Yes",
+      "DeviceProtection": "Yes",
+      "TechSupport": "No",
+      "StreamingTV": "No",
+      "StreamingMovies": "Yes",
+      "Contract": "One year",
+      "PaperlessBilling": "Yes",
+      "PaymentMethod": "Electronic check",
+      "MonthlyCharges": 90.65,
+      "TotalCharges": 1083.3
+   }
 ```
-2. Open Swagger UI to test the API:
-   - Visit [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) in your browser.
-
-3. Example POST Request:
+This should return a prediction response, similar to:
 ```json
 {
+  "prediction": "Yes"
+}
+```
+
+### 5. Testing the API
+You can test the API using `curl` or Postman. Here's an example `POST` request:
+```bash
+curl -X 'POST' \
+  'https://b5fdc89d-a172-453b-b01a-bd1f31a71217-00-p5trej93zd6q.pike.replit.dev/predict' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
   "gender": "Female",
   "SeniorCitizen": 0,
   "Partner": "Yes",
@@ -136,30 +153,143 @@ uvicorn api:app --reload
   "tenure": 12,
   "PhoneService": "Yes",
   "MultipleLines": "No",
-  "InternetService": "Fiber optic",
+  "InternetService": "DSL",
   "OnlineSecurity": "No",
   "OnlineBackup": "Yes",
-  "DeviceProtection": "Yes",
+  "DeviceProtection": "No",
   "TechSupport": "No",
-  "StreamingTV": "Yes",
+  "StreamingTV": "No",
   "StreamingMovies": "No",
-  "Contract": "Month-to-month",
+  "Contract": "One year",
   "PaperlessBilling": "Yes",
   "PaymentMethod": "Electronic check",
-  "MonthlyCharges": 70.35,
-  "TotalCharges": 1407.00
+  "MonthlyCharges": 49.99,
+  "TotalCharges": "600.5"
+}'
+```
+
+### Swagger UI: Testing and Results
+You can use Swagger UI to explore the API's functionality and test its endpoints interactively.
+
+1. **Access URL**:  
+   - For local testing: `http://127.0.0.1:8000/docs`  
+   - For hosted deployment (Replit): Use the provided Replit URL.
+
+2. **Testing Steps**:  
+   - Click the **"Try it out"** button for the `/predict` endpoint.  
+   - Enter the required JSON data in the provided fields.  
+   - Press **"Execute"** to get the prediction result.
+
+3. **Sample Response**:
+```json
+{
+  "prediction": "Yes"
 }
 ```
+4. **Example Screenshot**: Below is a successful API response tested using the REST Client extension in Visual Studio Code: 
+![Swagger UI Success](results/swagger_success.png)
+
+![REST Client in VSCode Success](results/churn_rest_client_response.png)
+## Troubleshooting
+
+Here are some common errors you might encounter while running the API and their solutions:
+
+1. **500 Internal Server Error**:
+   - **Cause**: Missing dependencies or the required data file is not found.
+   - **Solution**:
+     - Ensure all dependencies are installed:
+       ```bash
+       pip install -r requirements.txt
+       ```
+     - Verify that the `customer_churn.csv` file is correctly placed in the `data/` folder.
+
+2. **404 Not Found**:
+   - **Cause**: Incorrect URL or improperly configured API endpoint.
+   - **Solution**:
+     - Check that the endpoint URL (e.g., `/predict`) is correct.
+     - Ensure the server is running:
+       ```bash
+       uvicorn main:app --reload
+       ```
+
+3. **Connection Refused**:
+   - **Cause**: The server is not running.
+   - **Solution**:
+     - Start the server using:
+       ```bash
+       uvicorn main:app --reload
+       ```
+     - For Replit deployments, ensure the provided URL is active and correctly linked.
+
+
+## How to Contribute
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -am 'Add new feature'`
+4. Push to the branch: `git push origin feature/your-feature`
+5. Create a new Pull Request
+
+
+
 
 ---
 
-## Next Steps
-- **Cloud Deployment**:
-  - Deploy the API to AWS, GCP, or Heroku for public access.
-- **Model Optimization**:
-  - Further tune the Logistic Regression and XGBoost models.
-- **Interactive Visualizations**:
-  - Create dashboards with tools like Plotly or Dash.
+## Files and Directory Structure
+```bash
+churn_analysis_project/
+├── analysis.py             # Contains data analysis and model training code.
+├── main.py                 # Starts the FastAPI application for predictions.
+├── api.py                  # Handles API endpoints and prediction logic.
+├── requirements.txt        # Lists all dependencies required to run the project.
+├── results/                # Contains model and visualization outputs.
+│   ├── rf_model.joblib     # Saved Random Forest model for predictions.
+│   ├── scaler.joblib       # StandardScaler for preprocessing features.
+│   ├── features.txt        # List of features used for model training.
+│   ├── confusion_matrix.png # Confusion matrix heatmap.
+│   ├── churn_by_gender.png # Visualization of churn rates by gender.
+├── README.md               # Project documentation (this file).
+├── .gitignore              # Specifies files and directories to ignore in version control.
+```
+## Requirements
+- Python 3.12+
+- FastAPI
+- Uvicorn
+- scikit-learn
+- joblib
+- pandas
+- pydantic
+
+
+---
+
+## Technologies Used
+- **Python**: Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn, XGBoost
+- **Framework**: FastAPI, Uvicorn
+- **Deployment**: Replit (for easy hosting and deployment)
+
+## Future Work
+- Experiment with additional models such as **Gradient Boosting** and **Support Vector Machines**.
+- Integrate the API with **AWS Lambda** and **API Gateway** for a fully serverless deployment.
+- Implement autoscaling for handling high-frequency requests.
+- Incorporate advanced feature engineering techniques to improve model accuracy.
+- Create automated testing and implement unit tests using **Pytest** to ensure code reliability.
+
+---
+
+## Limitations
+While this project provides a robust foundation for churn prediction, there are some limitations:
+
+1. **Data Bias**: The model relies on a specific dataset, which may not represent all customer demographics or regions.
+2. **Feature Constraints**: Some important features that could improve prediction accuracy may be missing from the dataset.
+3. **Model Scalability**: The current deployment setup might not scale well for large, high-frequency requests without additional optimizations.
+4. **Interpretability**: Although Random Forest provides feature importance, it lacks the full interpretability of simpler models like Logistic Regression.
+
+Addressing these limitations through advanced techniques and broader datasets is a potential area for future development.
+
+---
+
+## Conclusion
+This project demonstrates how machine learning can be used to predict customer churn in the telecommunications industry. By comparing various models, a **Random Forest** model was chosen for deployment due to its accuracy and interpretability. This project provides a foundation for building real-time prediction systems that can be integrated into business operations to help retain valuable customers.
 
 ---
 
