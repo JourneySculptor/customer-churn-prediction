@@ -82,6 +82,11 @@ This project **does not include the dataset** due to copyright restrictions.
 **Without the dataset**, the project **will not run successfully**. 
 If you encounter issues, refer to the [Troubleshooting](#troubleshooting) section for detailed guidance.
 
+#### Using a Dummy Dataset for Testing:
+If you don't want to download the full dataset right now, you can use a **dummy dataset** for initial testing. Simply create a file named `customer_churn.csv` inside the `data/` directory with the following columns:
+  - `customerID, gender, SeniorCitizen, Partner, Dependents, tenure, PhoneService, MultipleLines, InternetService, OnlineSecurity, OnlineBackup, DeviceProtection, TechSupport, StreamingTV, StreamingMovies, Contract, PaperlessBilling, PaymentMethod, MonthlyCharges, TotalCharges, Churn`
+  - Use some dummy data in CSV format to test the functionality of the code.
+
 ### Skills Demonstrated
 - **Data Preprocessing**: Handling missing values, encoding categorical features.
 - **Exploratory Data Analysis (EDA)**: Visualizing churn correlations with various features.
