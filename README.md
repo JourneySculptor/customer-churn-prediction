@@ -32,6 +32,12 @@ In the competitive telecommunications industry, understanding customer churn is 
   - You can download it from the following link and place it in the `data/` folder as `customer_churn.csv`:
     - [Kaggle - Telco Customer Churn Dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
 
+### Important Note on Dataset Usage
+This project does not include the dataset due to copyright restrictions. Please download the dataset from the Kaggle link provided above. Once downloaded, place the file in the `data/` directory and name it `customer_churn.csv` to run the project successfully.
+
+If you encounter issues, refer to the [Troubleshooting](#troubleshooting) section.
+
+
 
 
 ### Skills Demonstrated
