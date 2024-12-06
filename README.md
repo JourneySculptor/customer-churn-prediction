@@ -22,6 +22,45 @@ In the competitive telecommunications industry, understanding customer churn is 
 - **Deployment**: The Random Forest model was deployed as a real-time prediction API using **FastAPI**.
 - **Comprehensive Analysis**: Includes data preprocessing, exploratory analysis, and model evaluation.
 
+---
+
+## Deployment
+This project is deployed on Heroku for easy access. Below are the details for replicating the deployment and dataset setup.
+
+### Heroku Deployment Steps
+1. **Clone the Repository**
+```bash
+git clone https://github.com/yourusername/churn_analysis_project.git
+cd churn_analysis_project
+```
+2. **Set Up Heroku App**
+- Ensure the Heroku CLI is installed.
+- Log in to Heroku:
+```bash
+heroku login
+```
+- Create a Heroku app:
+```bash
+heroku create churn-analysis-api
+```
+3. **Configure Environment Variables** Add your Kaggle API keys to the Heroku **Config Vars**:
+- Go to your Heroku app's dashboard.
+- Navigate to **Settings** > **Config Vars** > **Reveal Config Vars**.
+- Add the following keys:
+   - `KAGGLE_USERNAME`: Your Kaggle username.
+   - `KAGGLE_KEY`: Your Kaggle API key.
+4. **Deploy to Heroku**
+- Push your code to Heroku:
+```bash
+git push heroku main
+```
+- Verify the deployment and access the API:
+```bash
+heroku open
+```
+
+---
+
 ## Dataset Overview
 - **Source**: Telecom customer churn dataset
 - **Rows**: 7043
@@ -95,8 +134,8 @@ If you encounter issues, refer to the [Troubleshooting](#troubleshooting) sectio
 ### 1. Cloning the Repository
 Clone this repository to your local machine using Git:
 ```bash
-git clone https://github.com/yourusername/churn_analysis_project.git
-cd churn_analysis_project
+git clone https://github.com/JourneySculptor/customer-churn-prediction
+cd customer-churn-prediction
 ```
 ### 2. Installing Dependencies
 Make sure you have Python 3.12+ installed. Then, install the required libraries using `pip`:
@@ -109,11 +148,11 @@ To run the FastAPI app locally, navigate to the project directory and use Uvicor
 uvicorn main:app --reload
 ```
 he application will be accessible at `http://127.0.0.1:8000` in your browser.
-### 4. Replit Deployment (Current Setup)
+### 4. Heroku Deployment (Current Setup)
 1. Visit the hosted API at this URL:
-   - **Base URL**: [https://b5fdc89d-a172-453b-b01a-bd1f31a71217-00-p5trej93zd6q.pike.replit.dev](https://b5fdc89d-a172-453b-b01a-bd1f31a71217-00-p5trej93zd6q.pike.replit.dev)
+   - **Base URL**: [https://churn-analysis-api.herokuapp.com](https://churn-analysis-api.herokuapp.com)
 2. Open Swagger UI to test the API:   
-   - **Swagger UI**: [https://b5fdc89d-a172-453b-b01a-bd1f31a71217-00-p5trej93zd6q.pike.replit.dev/docs](https://b5fdc89d-a172-453b-b01a-bd1f31a71217-00-p5trej93zd6q.pike.replit.dev/docs)
+   - **Swagger UI**: [https://churn-analysis-api.herokuapp.com/docs](https://churn-analysis-api.herokuapp.com/docs)
 
 - Input data in the provided JSON format.
    - Example POST request:
@@ -182,7 +221,7 @@ You can use Swagger UI to explore the API's functionality and test its endpoints
 
 1. **Access URL**:  
    - For local testing: `http://127.0.0.1:8000/docs`  
-   - For hosted deployment (Replit): Use the provided Replit URL.
+   - For Heroku deployment: `https://churn-analysis-api.herokuapp.com/docs`
 
 2. **Testing Steps**:  
    - Click the **"Try it out"** button for the `/predict` endpoint.  
@@ -238,9 +277,6 @@ Here are some common errors you might encounter while running the API and their 
 4. Push to the branch: `git push origin feature/your-feature`
 5. Create a new Pull Request
 
-
-
-
 ---
 
 ## Files and Directory Structure
@@ -249,13 +285,16 @@ churn_analysis_project/
 ├── analysis.py             # Contains data analysis and model training code.
 ├── main.py                 # Starts the FastAPI application for predictions.
 ├── api.py                  # Handles API endpoints and prediction logic.
+├── download_data.py        # Script to download dataset from Kaggle during deployment.
 ├── requirements.txt        # Lists all dependencies required to run the project.
+├── Procfile                # Defines Heroku deployment commands.
 ├── results/                # Contains model and visualization outputs.
 │   ├── rf_model.joblib     # Saved Random Forest model for predictions.
 │   ├── scaler.joblib       # StandardScaler for preprocessing features.
 │   ├── features.txt        # List of features used for model training.
 │   ├── confusion_matrix.png # Confusion matrix heatmap.
 │   ├── churn_by_gender.png # Visualization of churn rates by gender.
+├── data/                   # Directory to store the dataset.
 ├── README.md               # Project documentation (this file).
 ├── .gitignore              # Specifies files and directories to ignore in version control.
 ```
@@ -267,7 +306,6 @@ churn_analysis_project/
 - joblib
 - pandas
 - pydantic
-
 
 ---
 
@@ -282,7 +320,8 @@ churn_analysis_project/
 - Implement autoscaling for handling high-frequency requests.
 - Incorporate advanced feature engineering techniques to improve model accuracy.
 - Create automated testing and implement unit tests using **Pytest** to ensure code reliability.
-
+- Add **Docker** support for containerized deployments.
+- Enhance security by implementing OAuth2 authentication.
 ---
 
 ## Limitations
