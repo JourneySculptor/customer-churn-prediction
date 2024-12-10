@@ -1,8 +1,38 @@
 
 # Customer Churn Analysis
 
+This project demonstrates an end-to-end pipeline for predicting customer churn in the telecommunications industry. It includes:
+- Machine Learning model selection and deployment (Random Forest).
+- A real-time API for churn prediction using FastAPI.
+- Hosting and scaling on Google Cloud Run.
+
+## Getting Started
+
+To quickly start with this project, follow these steps:
+
+1. Clone the repository and navigate to the project folder:
+   ```bash
+   git clone https://github.com/JourneySculptor/customer-churn-prediction.git
+   cd customer-churn-prediction
+  ```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+  ```
+3. Run the FastAPI app locally:
+   ```bash
+   uvicorn main:app --reload
+  ```
+4. Access the app in your browser at `http://127.0.0.1:8000/docs` to explore the Swagger UI.
+
+## Live Demo
+- **Deployed API URL**: [https://churn-analysis-api-500480140.us-central1.run.app](https://churn-analysis-api-500480140.us-central1.run.app)
+- **Swagger UI**: [https://churn-analysis-api-500480140.us-central1.run.app/docs](https://churn-analysis-api-500480140.us-central1.run.app/docs)
+
+Explore the live API or test it interactively using Swagger UI.
+
 ## Project Overview
-This project demonstrates how machine learning can be used to predict **customer churn** in the telecommunications industry. By deploying a Random Forest model as a real-time API using **FastAPI**** and **Google Cloud Run**, this project achieves the following:
+This project demonstrates how machine learning can be used to predict **customer churn** in the telecommunications industry. By deploying a Random Forest model as a real-time API using **FastAPI** and **Google Cloud Run**, this project achieves the following:
 
   - Predict customer churn with a high recall (92%) to minimize false negatives.
   - Deploy a fully functional API that integrates seamlessly into CRM systems or business workflows.
@@ -13,16 +43,6 @@ This project was developed as a part of my portfolio to showcase my skills in:
 - End-to-End Machine Learning workflows
 - Cloud infrastructure setup and deployment using Docker and Google Cloud Run
 - Real-time API design and integration
-
-## Service URL:
-The deployed API is accessible at:
-[https://churn-analysis-api-500480140.us-central1.run.app](https://churn-analysis-api-500480140.us-central1.run.app)
-
-## Swagger UI:
-API documentation can be accessed at:
-[https://churn-analysis-api-500480140.us-central1.run.app/docs](https://churn-analysis-api-500480140.us-central1.run.app/docs)
-
-
 
 ### Use Cases
 - **CRM Integration**: Integrate this API with customer relationship management (CRM) systems to enable real-time churn predictions for targeted marketing campaigns.
@@ -207,15 +227,28 @@ After deployment, Swagger documentation will be accessible at `/docs`:
 
 This section demonstrates how to test the deployed API using **Postman** and the command line (`curl`).
 
-### 1. Testing with Postman
-- Download the following [Postman Collection](postman_collection.json) to import pre-configured API tests into Postman.
-- **Steps to Import the Collection**:
-  1. Open Postman.
-  2. Click on "Import" in the top-left corner.
-  3. Upload the downloaded JSON file.
-  4. Select the imported collection and run the `/predict` endpoint by providing the required JSON payload.
+### 1. When to Use Postman or `curl`
+- Use **Postman** for interactive testing with a graphical interface. Ideal for beginners or if you want to visually inspect and tweak your requests.
+- Use **curl** for quick, automated testing via the command line.
 
-### 2. Using `curl` from the Command Line
+
+### 2. Postman Collection
+The `postman_collection.json` file contains pre-configured API requests for the `/predict` endpoint. Import this file into Postman to quickly test the API without manual setup.
+
+**Download Postman Collection**: [postman_collection.json](postman_collection.json)
+
+**Steps to Use:**
+1. Download the `postman_collection.json` file from this repository.
+2. Open Postman and click the "Import" button.
+3. Select the downloaded `postman_collection.json`.
+4. Run the `/predict` endpoint with the pre-configured settings.
+
+**Manual Testing (if you don't use Postman Collection):**
+- Set up a POST request to the endpoint: `https://churn-analysis-api-500480140.us-central1.run.app/predict`.
+- Add the JSON payload under the "Body" tab (see the example in the section "Testing with Postman").
+
+
+### 3. Using `curl` from the Command Line
 You can use the `curl` command to test the API directly from the command line.
 
 - **Example Command**:
@@ -431,6 +464,7 @@ churn_analysis_project/
 ├── analysis.py             # Contains data analysis and model training code.
 ├── download_data.py        # Script to download dataset from Kaggle or Google Cloud Storage.
 ├── requirements.txt        # Lists all dependencies required to run the project.
+├── postman_collection.json # Pre-configured Postman Collection for API testing
 ├── Dockerfile              # Docker container configuration for deployment.
 ├── Procfile                # Defines deployment commands.
 ├── README.md               # Project documentation and setup instructions.
@@ -462,10 +496,10 @@ churn_analysis_project/
 - **Deployment**: Replit (for easy hosting and deployment)
 
 ## Future Improvements
-- **Improve Accuracy**: Experiment with ensemble methods or deep learning models for better accuracy.
-- **Scale the API**: Implement horizontal scaling strategies for handling larger traffic volumes.
-- **Integration Testing**: Develop integration tests for end-to-end API validation.
-- **Add Dashboard**: Build a dashboard to monitor churn prediction trends and performance.
+1. **Improve Model Performance**: Experiment with advanced ensemble methods or deep learning models to boost accuracy and recall.
+2. **Add Monitoring and Analytics**: Integrate a dashboard for tracking prediction trends and performance metrics.
+3. **Scalability**: Implement horizontal scaling strategies to handle high-traffic use cases.
+4. **Enhance Data Diversity**: Incorporate more diverse datasets to reduce potential bias and improve generalizability.
 
 ---
 
