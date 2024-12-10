@@ -256,7 +256,7 @@ Follow these steps to use Postman for testing:
 You can use the `curl` command to test the API directly from the command line.
 
 - **Example Command**:
-  ```bash
+```bash
   curl -X POST \
     'https://churn-analysis-api-500480140.us-central1.run.app/predict' \
     -H 'Content-Type: application/json' \
