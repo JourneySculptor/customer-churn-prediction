@@ -14,17 +14,17 @@ To quickly start with this project, follow these steps:
    ```bash
    git clone https://github.com/JourneySculptor/customer-churn-prediction.git
    cd customer-churn-prediction
-  ```  
-  
+   ```  
+
 2. Install dependencies:
    ```bash
    pip install -r requirements.txt
-  ```  
+   ```  
 
 3. Run the FastAPI app locally:
    ```bash
    uvicorn main:app --reload  
-  ```  
+   ```  
 
 4. Access the app in your browser at `http://127.0.0.1:8000/docs` to explore the Swagger UI.  
 
@@ -34,7 +34,6 @@ To quickly start with this project, follow these steps:
 - **Swagger UI**: [https://churn-analysis-api-500480140.us-central1.run.app/docs](https://churn-analysis-api-500480140.us-central1.run.app/docs)
 
 Explore the live API or test it interactively using Swagger UI.
-
 ## Project Overview
 This project demonstrates how machine learning can be used to predict **customer churn** in the telecommunications industry. By deploying a Random Forest model as a real-time API using **FastAPI** and **Google Cloud Run**, this project achieves the following:
 
