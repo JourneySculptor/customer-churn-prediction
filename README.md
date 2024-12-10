@@ -25,6 +25,8 @@ To quickly start with this project, follow these steps:
   ```
 4. Access the app in your browser at `http://127.0.0.1:8000/docs` to explore the Swagger UI.
 
+---
+
 ## Live Demo
 - **Deployed API URL**: [https://churn-analysis-api-500480140.us-central1.run.app](https://churn-analysis-api-500480140.us-central1.run.app)
 - **Swagger UI**: [https://churn-analysis-api-500480140.us-central1.run.app/docs](https://churn-analysis-api-500480140.us-central1.run.app/docs)
