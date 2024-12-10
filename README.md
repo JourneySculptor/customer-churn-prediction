@@ -280,7 +280,7 @@ You can use the `curl` command to test the API directly from the command line.
         "PaymentMethod": "Electronic check",
         "MonthlyCharges": 90.65,
         "TotalCharges": 1083.3
-    }'
+    }
 ```  
 
 - Expected Response:
