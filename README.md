@@ -234,22 +234,23 @@ This section demonstrates how to test the deployed API using **Postman** and the
 - Use **Postman** for interactive testing with a graphical interface. Ideal for beginners or if you want to visually inspect and tweak your requests.
 - Use **curl** for quick, automated testing via the command line.
 
-
 ### 2. Postman Collection
 The `postman_collection.json` file contains pre-configured API requests for the `/predict` endpoint. Import this file into Postman to quickly test the API without manual setup.
 
 **Download Postman Collection**: [postman_collection.json](postman_collection.json)
 
-**Steps to Use:**
-1. Download the `postman_collection.json` file from this repository.
-2. Open Postman and click the "Import" button.
-3. Select the downloaded `postman_collection.json`.
-4. Run the `/predict` endpoint with the pre-configured settings.
+### Using Postman (Step-by-Step)
 
-**Manual Testing (if you don't use Postman Collection):**
-- Set up a POST request to the endpoint: `https://churn-analysis-api-500480140.us-central1.run.app/predict`.
-- Add the JSON payload under the "Body" tab (see the example in the section "Testing with Postman").
+Follow these steps to use Postman for testing:
 
+1. Open Postman and click the **"Import"** button.
+2. Select the `postman_collection.json` file and import it.
+3. Select the imported request (e.g., `/predict`) and input the required JSON data in the **Body** section.
+4. Click **"Send"** to submit the request and view the response.
+
+### Notes for Beginners:
+- Make sure to download the `postman_collection.json` file from this repository beforehand.
+- If you encounter issues, double-check that the URL and payload format match the examples provided.
 
 ### 3. Using `curl` from the Command Line
 You can use the `curl` command to test the API directly from the command line.
@@ -280,7 +281,8 @@ You can use the `curl` command to test the API directly from the command line.
         "MonthlyCharges": 90.65,
         "TotalCharges": 1083.3
     }'
-  ```
+```  
+
 - Expected Response:
 ```json
 {
