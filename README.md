@@ -2,8 +2,27 @@
 # Customer Churn Analysis
 
 ## Project Overview
-This project predicts **customer churn** in the telecommunications industry using machine learning models. Churn prediction enables businesses to retain valuable customers by identifying who is likely to leave.
-In the competitive telecommunications industry, understanding customer churn is critical for retaining customers and reducing costs.
+This project demonstrates how machine learning can be used to predict **customer churn** in the telecommunications industry. By deploying a Random Forest model as a real-time API using **FastAPI**** and **Google Cloud Run**, this project achieves the following:
+
+  - Predict customer churn with a high recall (92%) to minimize false negatives.
+  - Deploy a fully functional API that integrates seamlessly into CRM systems or business workflows.
+  - Showcase end-to-end infrastructure setup from model training to cloud deployment.
+
+## Purpose of This Project
+This project was developed as a part of my portfolio to showcase my skills in:
+- End-to-End Machine Learning workflows
+- Cloud infrastructure setup and deployment using Docker and Google Cloud Run
+- Real-time API design and integration
+
+## Service URL:
+The deployed API is accessible at:
+[https://churn-analysis-api-500480140.us-central1.run.app](https://churn-analysis-api-500480140.us-central1.run.app)
+
+## Swagger UI:
+API documentation can be accessed at:
+[https://churn-analysis-api-500480140.us-central1.run.app/docs](https://churn-analysis-api-500480140.us-central1.run.app/docs)
+
+
 
 ### Use Cases
 - **CRM Integration**: Integrate this API with customer relationship management (CRM) systems to enable real-time churn predictions for targeted marketing campaigns.
@@ -17,47 +36,50 @@ In the competitive telecommunications industry, understanding customer churn is 
   - Deployed as a real-time API using **FastAPI**.
 
 ## Key Highlights:
-- **Multiple Machine Learning Models**: Logistic Regression, Random Forest, and XGBoost were compared.
-- **Highest Accuracy**: Logistic Regression achieved **81.33%** accuracy.
-- **Deployment**: The Random Forest model was deployed as a real-time prediction API using **FastAPI**.
-- **Comprehensive Analysis**: Includes data preprocessing, exploratory analysis, and model evaluation.
+- **Deployed API**: A fully functional churn prediction API running on **Google Cloud Run**.
+- **Model Selection**: Random Forest was chosen due to its balanced performance and interpretability.
+- **Performance**:
+
+  - Recall: 92% (minimizing false negatives)
+  - F1-score: 87%
 
 ---
 
-## Deployment
-This project is deployed on Heroku for easy access. Below are the details for replicating the deployment and dataset setup.
+## Deployment to Google Cloud Run
+The project is deployed using **Google Cloud Run**, which allows serverless hosting of containerized applications. Below are the steps to replicate the deployment.
 
-### Heroku Deployment Steps
-1. **Clone the Repository**
+### Setting Environment Variables
+**Note**: This project does not require any environment variables.
+
+All necessary resources (e.g., the trained model and scaler) are packaged within the application. External services such as databases or APIs are not used in this deployment.
+
+If in the future you need to integrate external services, you can refer to the Google Cloud Run documentation for setting up environment variables:
+[Google Cloud Run Documentation - Environment Variables](https://cloud.google.com/run/docs/configuring/environment-variables)
+
+### Deployment Steps
+1. **Clone the Repository:**
 ```bash
-git clone https://github.com/yourusername/churn_analysis_project.git
-cd churn_analysis_project
+git clone https://github.com/JourneySculptor/customer-churn-prediction.git
+cd customer-churn-prediction
 ```
-2. **Set Up Heroku App**
-- Ensure the Heroku CLI is installed.
-- Log in to Heroku:
+2. **Build and Push the Docker Image:**
+- Ensure you have Docker installed and configured to authenticate with Google Cloud.
 ```bash
-heroku login
+docker build -t us-docker.pkg.dev/molten-amulet-444008-b8/churn-analysis-api/churn-analysis-api:latest .
+docker push us-docker.pkg.dev/molten-amulet-444008-b8/churn-analysis-api/churn-analysis-api:latest
 ```
-- Create a Heroku app:
+3. **Deploy to Cloud Run:** 
+- Deploy the container to Google Cloud Run.
 ```bash
-heroku create churn-analysis-api
+gcloud run deploy churn-analysis-api ^
+    --image=us-docker.pkg.dev/molten-amulet-444008-b8/churn-analysis-api:latest ^
+    --platform=managed ^
+    --region=us-central1 ^
+    --allow-unauthenticated
 ```
-3. **Configure Environment Variables** Add your Kaggle API keys to the Heroku **Config Vars**:
-- Go to your Heroku app's dashboard.
-- Navigate to **Settings** > **Config Vars** > **Reveal Config Vars**.
-- Add the following keys:
-   - `KAGGLE_USERNAME`: Your Kaggle username.
-   - `KAGGLE_KEY`: Your Kaggle API key.
-4. **Deploy to Heroku**
-- Push your code to Heroku:
-```bash
-git push heroku main
-```
-- Verify the deployment and access the API:
-```bash
-heroku open
-```
+4. **Access the Deployed API:**
+- After deployment, the service will be accessible at:
+  - **Service URL**: [https://churn-analysis-api-500480140.us-central1.run.app](https://churn-analysis-api-500480140.us-central1.run.app)
 
 ---
 
@@ -83,9 +105,11 @@ This project **does not include the dataset** due to copyright restrictions.
 If you encounter issues, refer to the [Troubleshooting](#troubleshooting) section for detailed guidance.
 
 #### Using a Dummy Dataset for Testing:
-If you don't want to download the full dataset right now, you can use a **dummy dataset** for initial testing. Simply create a file named `customer_churn.csv` inside the `data/` directory with the following columns:
+If you don't want to download the full dataset, create a dummy dataset as follows:
+1. Place a file named `customer_churn.csv` inside the `data/` directory.
+2. Include the following columns:
   - `customerID, gender, SeniorCitizen, Partner, Dependents, tenure, PhoneService, MultipleLines, InternetService, OnlineSecurity, OnlineBackup, DeviceProtection, TechSupport, StreamingTV, StreamingMovies, Contract, PaperlessBilling, PaymentMethod, MonthlyCharges, TotalCharges, Churn`
-  - Use some dummy data in CSV format to test the functionality of the code.
+
 
 ### Skills Demonstrated
 - **Data Preprocessing**: Handling missing values, encoding categorical features.
@@ -135,15 +159,107 @@ If you don't want to download the full dataset right now, you can use a **dummy 
   ![Churn by Gender](results/churn_by_gender.png)
 
 
+## Endpoints and API Usage
+### 1. Test the API Health:
+- URL: `/`
+- Method: `GET`
+- Response:
+```json
+{"message": "API is running successfully"}
+```
+### Predict Customer Churn:
+- URL: `/predict`
+- Method: `POST`
+- Request Body:
+```json
+{
+    "gender": "Female",
+    "SeniorCitizen": 0,
+    "Partner": "Yes",
+    "Dependents": "No",
+    "tenure": 12,
+    "PhoneService": "Yes",
+    "MultipleLines": "No",
+    "InternetService": "Fiber optic",
+    "OnlineSecurity": "No",
+    "OnlineBackup": "Yes",
+    "DeviceProtection": "Yes",
+    "TechSupport": "No",
+    "StreamingTV": "No",
+    "StreamingMovies": "Yes",
+    "Contract": "One year",
+    "PaperlessBilling": "Yes",
+    "PaymentMethod": "Electronic check",
+    "MonthlyCharges": 90.65,
+    "TotalCharges": 1083.3
+}
+```
+- Response:
+```json
+{"churn": "Yes"}
+```
+### Swagger UI 
+After deployment, Swagger documentation will be accessible at `/docs`:
+
+   - Example: `https://churn-analysis-api-xxxxx.run.app/docs`
+
+## Example Usage (Step-by-Step)
+
+This section demonstrates how to test the deployed API using **Postman** and the command line (`curl`).
+
+### 1. Testing with Postman
+- Download the following [Postman Collection](postman_collection.json) to import pre-configured API tests into Postman.
+- **Steps to Import the Collection**:
+  1. Open Postman.
+  2. Click on "Import" in the top-left corner.
+  3. Upload the downloaded JSON file.
+  4. Select the imported collection and run the `/predict` endpoint by providing the required JSON payload.
+
+### 2. Using `curl` from the Command Line
+You can use the `curl` command to test the API directly from the command line.
+
+- **Example Command**:
+  ```bash
+  curl -X POST \
+    'https://churn-analysis-api-500480140.us-central1.run.app/predict' \
+    -H 'Content-Type: application/json' \
+    -d '{
+        "gender": "Female",
+        "SeniorCitizen": 0,
+        "Partner": "Yes",
+        "Dependents": "No",
+        "tenure": 12,
+        "PhoneService": "Yes",
+        "MultipleLines": "No",
+        "InternetService": "Fiber optic",
+        "OnlineSecurity": "No",
+        "OnlineBackup": "Yes",
+        "DeviceProtection": "Yes",
+        "TechSupport": "No",
+        "StreamingTV": "No",
+        "StreamingMovies": "Yes",
+        "Contract": "One year",
+        "PaperlessBilling": "Yes",
+        "PaymentMethod": "Electronic check",
+        "MonthlyCharges": 90.65,
+        "TotalCharges": 1083.3
+    }'
+  ```
+- Expected Response:
+```json
+{
+  "churn": "No"
+}
+```
+
 ## How to Test the API
 ### 1. Cloning the Repository
 Clone this repository to your local machine using Git:
 ```bash
-git clone https://github.com/JourneySculptor/customer-churn-prediction
+git clone https://github.com/JourneySculptor/customer-churn-prediction.git
 cd customer-churn-prediction
 ```
 ### 2. Installing Dependencies
-Make sure you have Python 3.12+ installed. Then, install the required libraries using `pip`:
 ```bash
 pip install -r requirements.txt
 ```
@@ -152,12 +268,7 @@ To run the FastAPI app locally, navigate to the project directory and use Uvicor
 ```bash
 uvicorn main:app --reload
 ```
-he application will be accessible at `http://127.0.0.1:8000` in your browser.
-### 4. Heroku Deployment (Current Setup)
-1. Visit the hosted API at this URL:
-   - **Base URL**: [https://churn-analysis-api.herokuapp.com](https://churn-analysis-api.herokuapp.com)
-2. Open Swagger UI to test the API:   
-   - **Swagger UI**: [https://churn-analysis-api.herokuapp.com/docs](https://churn-analysis-api.herokuapp.com/docs)
+The application will be accessible at `http://127.0.0.1:8000` in your browser.
 
 - Input data in the provided JSON format.
    - Example POST request:
@@ -191,14 +302,16 @@ This should return a prediction response, similar to:
 }
 ```
 
-### 5. Testing the API
+### 4. Testing the API
 You can test the API using `curl` or Postman. Here's an example `POST` request:
-```bash
-curl -X 'POST' \
-  'https://b5fdc89d-a172-453b-b01a-bd1f31a71217-00-p5trej93zd6q.pike.replit.dev/predict' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{
+
+#### Endpoint: `/predict`
+- **Method**: `POST`
+- **Description**: Predict customer churn based on input data.
+
+#### Request Example:
+```json
+{
   "gender": "Female",
   "SeniorCitizen": 0,
   "Partner": "Yes",
@@ -206,19 +319,53 @@ curl -X 'POST' \
   "tenure": 12,
   "PhoneService": "Yes",
   "MultipleLines": "No",
-  "InternetService": "DSL",
+  "InternetService": "Fiber optic",
   "OnlineSecurity": "No",
   "OnlineBackup": "Yes",
-  "DeviceProtection": "No",
+  "DeviceProtection": "Yes",
   "TechSupport": "No",
   "StreamingTV": "No",
-  "StreamingMovies": "No",
+  "StreamingMovies": "Yes",
   "Contract": "One year",
   "PaperlessBilling": "Yes",
   "PaymentMethod": "Electronic check",
-  "MonthlyCharges": 49.99,
-  "TotalCharges": "600.5"
-}'
+  "MonthlyCharges": 90.65,
+  "TotalCharges": 1083.3
+}
+```
+**Response Example:**
+```json
+{
+  "churn": "No"
+}
+```
+**Testing with curl:**
+```json
+curl -X POST \
+  'https://churn-analysis-api-500480140.us-central1.run.app/predict' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "gender": "Female",
+    "SeniorCitizen": 0,
+    "Partner": "Yes",
+    "Dependents": "No",
+    "tenure": 12,
+    "PhoneService": "Yes",
+    "MultipleLines": "No",
+    "InternetService": "Fiber optic",
+    "OnlineSecurity": "No",
+    "OnlineBackup": "Yes",
+    "DeviceProtection": "Yes",
+    "TechSupport": "No",
+    "StreamingTV": "No",
+    "StreamingMovies": "Yes",
+    "Contract": "One year",
+    "PaperlessBilling": "Yes",
+    "PaymentMethod": "Electronic check",
+    "MonthlyCharges": 90.65,
+    "TotalCharges": 1083.3
+  }'
 ```
 
 ### Swagger UI: Testing and Results
@@ -226,7 +373,6 @@ You can use Swagger UI to explore the API's functionality and test its endpoints
 
 1. **Access URL**:  
    - For local testing: `http://127.0.0.1:8000/docs`  
-   - For Heroku deployment: `https://churn-analysis-api.herokuapp.com/docs`
 
 2. **Testing Steps**:  
    - Click the **"Try it out"** button for the `/predict` endpoint.  
@@ -243,6 +389,7 @@ You can use Swagger UI to explore the API's functionality and test its endpoints
 ![Swagger UI Success](results/swagger_success.png)
 
 ![REST Client in VSCode Success](results/churn_rest_client_response.png)
+
 ## Troubleshooting
 
 Here are some common errors you might encounter while running the API and their solutions:
@@ -250,29 +397,21 @@ Here are some common errors you might encounter while running the API and their 
 1. **500 Internal Server Error**:
    - **Cause**: Missing dependencies or the required data file is not found.
    - **Solution**:
-     - Ensure all dependencies are installed:
+     - Install dependencies:
        ```bash
        pip install -r requirements.txt
        ```
-     - Verify that the `customer_churn.csv` file is correctly placed in the `data/` folder.
-
-2. **404 Not Found**:
-   - **Cause**: Incorrect URL or improperly configured API endpoint.
+     - Ensure the dataset is correctly placed in the `data/` directory.
+2. **API Not Responding**:
+   - **Cause**: Misconfigured container or port.
    - **Solution**:
-     - Check that the endpoint URL (e.g., `/predict`) is correct.
-     - Ensure the server is running:
-       ```bash
-       uvicorn main:app --reload
-       ```
-
-3. **Connection Refused**:
-   - **Cause**: The server is not running.
+     - Check that `PORT` environment variable is set to `8080` in the code.
+     - Verify the Dockerfile exposes port `8080`.
+3. **Permission Errors**:
+   - **Cause**: Missing permissions for Google Cloud services.
    - **Solution**:
-     - Start the server using:
-       ```bash
-       uvicorn main:app --reload
-       ```
-     - For Replit deployments, ensure the provided URL is active and correctly linked.
+     - Ensure the Google Cloud project has all necessary APIs enabled (`Cloud Run`, `Artifact Registry`).
+   - Verify service account roles and bindings.
 
 
 ## How to Contribute
@@ -287,21 +426,24 @@ Here are some common errors you might encounter while running the API and their 
 ## Files and Directory Structure
 ```bash
 churn_analysis_project/
-├── analysis.py             # Contains data analysis and model training code.
 ├── main.py                 # Starts the FastAPI application for predictions.
 ├── api.py                  # Handles API endpoints and prediction logic.
-├── download_data.py        # Script to download dataset from Kaggle during deployment.
+├── analysis.py             # Contains data analysis and model training code.
+├── download_data.py        # Script to download dataset from Kaggle or Google Cloud Storage.
 ├── requirements.txt        # Lists all dependencies required to run the project.
-├── Procfile                # Defines Heroku deployment commands.
+├── Dockerfile              # Docker container configuration for deployment.
+├── Procfile                # Defines deployment commands.
+├── README.md               # Project documentation and setup instructions.
+├── .gitignore              # Specifies files and directories to ignore in version control.
+├── data/                   # Directory to store local dataset for testing.
+│   ├── dummy_customer_churn.csv  # Dummy dataset for local testing.
 ├── results/                # Contains model and visualization outputs.
 │   ├── rf_model.joblib     # Saved Random Forest model for predictions.
 │   ├── scaler.joblib       # StandardScaler for preprocessing features.
 │   ├── features.txt        # List of features used for model training.
 │   ├── confusion_matrix.png # Confusion matrix heatmap.
 │   ├── churn_by_gender.png # Visualization of churn rates by gender.
-├── data/                   # Directory to store the dataset.
-├── README.md               # Project documentation (this file).
-├── .gitignore              # Specifies files and directories to ignore in version control.
+└── tests/                  # Optional: Unit tests for APIs and core functionality.
 ```
 ## Requirements
 - Python 3.12+
@@ -319,14 +461,12 @@ churn_analysis_project/
 - **Framework**: FastAPI, Uvicorn
 - **Deployment**: Replit (for easy hosting and deployment)
 
-## Future Work
-- Experiment with additional models such as **Gradient Boosting** and **Support Vector Machines**.
-- Integrate the API with **AWS Lambda** and **API Gateway** for a fully serverless deployment.
-- Implement autoscaling for handling high-frequency requests.
-- Incorporate advanced feature engineering techniques to improve model accuracy.
-- Create automated testing and implement unit tests using **Pytest** to ensure code reliability.
-- Add **Docker** support for containerized deployments.
-- Enhance security by implementing OAuth2 authentication.
+## Future Improvements
+- **Improve Accuracy**: Experiment with ensemble methods or deep learning models for better accuracy.
+- **Scale the API**: Implement horizontal scaling strategies for handling larger traffic volumes.
+- **Integration Testing**: Develop integration tests for end-to-end API validation.
+- **Add Dashboard**: Build a dashboard to monitor churn prediction trends and performance.
+
 ---
 
 ## Limitations

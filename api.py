@@ -6,7 +6,7 @@ from joblib import load
 from typing import Optional
 
 # Set Pandas options to suppress future warnings about silent downcasting
-pd.set_option('future.no_silent_downcasting', True)
+#pd.set_option('future.no_silent_downcasting', True)
 
 # Initialize FastAPI application
 app = FastAPI()
