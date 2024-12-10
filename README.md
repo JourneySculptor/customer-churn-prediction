@@ -378,7 +378,7 @@ You can test the API using `curl` or Postman. Here's an example `POST` request:
 }
 ```
 **Testing with curl:**
-```json
+```bash
 curl -X POST \
   'https://churn-analysis-api-500480140.us-central1.run.app/predict' \
   -H 'accept: application/json' \
